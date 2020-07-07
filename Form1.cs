@@ -128,7 +128,7 @@ namespace TalkTalk
         {
             MethodInvoker invoker = new MethodInvoker(delegate
             {
-                _txtServer.Text += text + "/n/r";
+                _txtServer.Text += text + Environment.NewLine;
             }
                 );
 

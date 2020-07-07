@@ -100,6 +100,7 @@
             // _txtServer
             // 
             this._txtServer.AcceptsReturn = true;
+            this._txtServer.AcceptsTab = true;
             this._txtServer.Location = new System.Drawing.Point(786, 10);
             this._txtServer.Multiline = true;
             this._txtServer.Name = "_txtServer";

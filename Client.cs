@@ -17,6 +17,7 @@ namespace TalkTalk
         public Client()
         {
             InitializeComponent();
+            StartClient();
         }
 
 
@@ -24,6 +25,20 @@ namespace TalkTalk
         private Socket _clientSocketClient;
         //private byte[] buffer;
         int portToConnect = 61000;
+
+
+        private void StartClient()
+        {
+            try
+            {
+                _clientSocketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _clientSocketClient.BeginConnect(new IPEndPoint(IPAddress.Loopback, portToConnect), new AsyncCallback(ConnectCallBack), null);
+            }
+            catch (Exception ex)
+            {
+                ShowExceptionBox(ex.Message);
+            }
+        }
         private void _btnConnect_Click(object sender, EventArgs e)
         {
             try
@@ -52,18 +67,18 @@ namespace TalkTalk
             }
         }
 
-        private void _btnSend_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                byte[] buffer = Encoding.ASCII.GetBytes(_txtBoxNewMsg.Text);
-                _clientSocketClient.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(SendCallBack), null);
-            }
-            catch (Exception ex)
-            {
-                ShowExceptionBox(ex.Message);
-            }
-        }
+        //private void _btnSend_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        byte[] buffer = Encoding.ASCII.GetBytes(_txtBoxNewMsg.Text);
+        //        _clientSocketClient.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(SendCallBack), null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ShowExceptionBox(ex.Message);
+        //    }
+        //}
 
         private void SendCallBack(IAsyncResult AR)
         {
@@ -84,5 +99,19 @@ namespace TalkTalk
 
         #endregion
 
+        private void _btnSend_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                byte[] buffer = Encoding.ASCII.GetBytes(_txtBoxNewMsg.Text);
+                _clientSocketClient.BeginSend(buffer, 0, buffer.Length, SocketFlags.None, new AsyncCallback(SendCallBack), null);
+                _txtMsgHistory.Text += "Me: "+_txtBoxNewMsg.Text + Environment.NewLine;
+
+            }
+            catch (Exception ex)
+            {
+                ShowExceptionBox(ex.Message);
+            }
+        }
     }
 }

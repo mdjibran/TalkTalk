@@ -18,6 +18,7 @@ namespace TalkTalk
         public Server()
         {
             InitializeComponent();
+            StartServer();
         }
 
         #region SocketsServer
@@ -75,11 +76,16 @@ namespace TalkTalk
             }
         }
 
+        private void _btnSend_Click(object sender, EventArgs e)
+        {
+           
+        }
+
         private void AppendToTextBox(string text)
         {
             MethodInvoker invoker = new MethodInvoker(delegate
             {
-                _txtServer.Text += text + Environment.NewLine;
+                _txtMsgHistoryServer.Text += "Client: " + text + Environment.NewLine;
             }
                 );
 

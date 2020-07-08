@@ -138,7 +138,7 @@ namespace TalkTalk
 
         #region SocketsClient
         private Socket _clientSocketClient;
-        private byte[] buffer;
+        //private byte[] buffer;
 
         private void _btnConnect_Click(object sender, EventArgs e)
         {
